@@ -43,3 +43,18 @@ test('should be able to type confirm password', () => {
 
   expect(confirmPasswordInputElement.value).toBe('password!');
 })
+
+test('should show error message on invalid email', () => {
+  render(<App/>);
+
+  const emailErrorElement = screen.queryByText(/the email you input is invalid/i);
+  const emailInputElement = screen.getByRole('textbox', {name: /email/i});
+  const submitBtnElement = screen.getByRole('button', {name: /submit/i});
+
+  expect(emailErrorElement).not.toBeInTheDocument();
+
+  userEvent.type(emailInputElement, 'testtest.com');
+  userEvent.click(submitBtnElement);
+
+  expect(emailErrorElement).toBeInTheDocument();
+})
