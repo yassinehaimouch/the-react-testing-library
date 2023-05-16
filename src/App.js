@@ -13,6 +13,12 @@ function App() {
     if(!validator.isEmail(signInput.email)){
       return setError('the email you input is invalid');
     }
+    else if(signInput.password.length < 5){
+      return setError('The password you entred should contain 5 or more character.')
+    }
+    else if(signInput.confirmPassword !== signInput.password){
+      return setError("The passwords don't match try again.")
+    }
   }
 
   return (
