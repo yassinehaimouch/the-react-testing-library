@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
+import userEvent from '@testing-library/user-event';
 
 test('inputs should be initially empty', () => {
   // 1) Rendering The Component We Want to Test
@@ -15,3 +16,12 @@ test('inputs should be initially empty', () => {
   expect(passwordInputElement.value).toBe("");
   expect(confirmPasswordInputElement.value).toBe("");
 });
+
+test('should be able to type an email', () => {
+  render(<App />);
+
+  const emailInputElement = screen.getByRole('textbox', {name: /email/i});
+  userEvent.type(emailInputElement, "test@test.com");
+
+  expect(emailInputElement.value).toBe("test@test.com");
+})
